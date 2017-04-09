@@ -1,0 +1,29 @@
+table {
+    /*vertical-align: center;*/
+    border: 2px black solid;
+}
+
+.row td {
+    border: 1px black solid;
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-item {
+    flex-grow: 1; 
+}
+
+.flex-container1 {
+   /*display: flex;
+   justify-content: space-around;*/
+}
+
+.square {
+    height: 100px;
+    width: 100px;
+    font-size: 25px;
+}
