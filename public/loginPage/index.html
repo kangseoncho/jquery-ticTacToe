@@ -11,18 +11,19 @@
     <br>
     <div class="intro">Please log-in</div>
 
- 
-        Username: <input type="text" id="existingUser"> <br>
-        Password: <input type="password" id="existingPassword"> <br>
-        <input type="submit" value="log-In" onclick="verify()">
+      <form action="/verify" method="POST">
+        Username: <input type="text" id="existingUser" name="username"> <br>
+        Password: <input type="password" id="existingPassword" name="password"> <br>
+        <input type="submit" value="log-In">
+      </form>
         <br><br><br>
         New User? Sign Up!
         <br>
-        Username: <input type="text" id="newUsername"> <br>
-        Password: <input type="password" id="newPassword"> <br>
-        <input type="submit" value="Sign-Up" id="signup">
-    
+      <form action="/register" method="POST">
+        Username: <input type="text" id="newUsername" name="username"> <br>
+        Password: <input type="password" id="newPassword" name="password"> <br>
+        <input type="submit" value="Sign-Up">
+      </form>
 
   </body>
-    <script src="main.js"></script>
 </html>
