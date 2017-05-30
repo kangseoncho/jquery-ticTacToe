@@ -2,7 +2,6 @@
 const User = require('./userModel');
 const path = require('path');
 
-
 const userController = {
     //for finding all users in DB
     getAllUser(req, res) {
@@ -17,9 +16,9 @@ const userController = {
         console.log("i am req.body: ", req.body)
         User.create(req.body, (err, result) => {
             if (err) {
-                return res.status(400).send('failed to create new user')
+                return res.redirect('/');
             } else {
-                res.status(200).json(result);
+                return res.redirect('/game');
             }
         })
     },
@@ -28,16 +27,14 @@ const userController = {
     verifyUser(req, res) {
         User.findOne({username: req.body.username}, (err, result) => {
             if (req.body.password !== result.password) {
-                return res.status(400).send('wrong username/password');
+                return res.redirect('/');
             } else {
                 //should be redirecting to home page '/'
-                //res.redirect('/');
+                return res.redirect('/game');
             }
-
         })
     }
 };
-
 
 //export userController object for use
 module.exports = userController;

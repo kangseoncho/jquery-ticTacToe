@@ -2,33 +2,34 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const port = 8888;
 
 //connect mongoose with server
 require('./mongoose.js');
+const userController = require('./userdb/userController');
 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
+
 //serve html, js, and css files
-app.use(express.static(__dirname + './../public/loginPage'));
+app.use('/', express.static(__dirname + './../public/loginPage'));
+app.use('/game', express.static(__dirname + './../public/game'));
 
-//app.disable('etag');
+//only here to make redirect work
+app.get('/', (req, res) => { return });
+app.get('/game', (req, res) => { return });
 
-//linked routes (after middlewares) for modularity
-require('./route/route.js')(app);
+//testing route to see if i can access users.
+app.get("/users", userController.getAllUser);
 
-//houses all my tic-tac-toe stuff. will be redirected her after signup and/or verification... does not work 
-// app.get('/game', (req, res) => {
-//     console.log('lets play');
-//     res.sendFile(path.join(__dirname, '../game/ticTacToe.html'), {cacheControl: false, lastModified: false}, (err) => {
-//         console.log(res.statusCode);
-//         if (err) console.log(err);
-//         else {
-//             console.log('i am working');
-//         }
-//     });
-//     //res.json({username: 'username', password: 'password'});
-// })
+//put into DB a new user
+app.post('/register', userController.createUser);
 
-app.listen(8888, () => {
-    console.log(path.join(__dirname, '../game/ticTacToe.html'));
-    console.log('listening on port 8888');
+//verify a existing user with DB
+app.post('/verify', userController.verifyUser);
+
+
+app.listen(port, () => {
+    console.log(__dirname);
+    console.log(`listening on port ${port}`);
 })
